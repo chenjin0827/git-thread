@@ -16,10 +16,11 @@ public class EndThread {
 		@Override
 		public void run() {
 			String threadName = Thread.currentThread().getName();
-			while(true) {
+			//子线程必须处理中断，不能main方法中的interrupt 也不管用
+			while(!isInterrupted()) {
 				System.out.println(threadName+" is run!");
 			}
-			//System.out.println(threadName+" interrput flag is "+isInterrupted());
+			System.out.println(threadName+" interrput flag is "+isInterrupted());
 		}
 	}
 
