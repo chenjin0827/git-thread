@@ -1,0 +1,6 @@
+*.iml
+#.gitignore
+
+# 只忽略target目录，不忽略target文件
+.idea/
+target/
