@@ -13,7 +13,7 @@ public class EndRunnable {
 		public void run() {
 
 			String threadName = Thread.currentThread().getName();
-			while(Thread.currentThread().isInterrupted()) {
+			while(!Thread.currentThread().isInterrupted()) {
 				System.out.println(threadName+" is run!");
 			}
 			System.out.println(threadName+" interrput flag is "
