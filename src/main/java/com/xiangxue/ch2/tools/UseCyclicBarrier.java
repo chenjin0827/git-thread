@@ -35,6 +35,7 @@ public class UseCyclicBarrier {
             for(Map.Entry<String,Long> workResult:resultMap.entrySet()){
             	result.append("["+workResult.getValue()+"]");
             }
+            System.out.println("resultMap  size=="+resultMap.size());
             System.out.println(" the result = "+ result);
             System.out.println("do other business........");
         }
