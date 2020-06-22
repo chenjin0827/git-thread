@@ -33,22 +33,22 @@ public class MyNewThread {
             //测试futureTask.get()是一个阻塞方法
             Thread.sleep(2000);
             System.out.println("等待2秒钟，模拟业务执行");
-            return "我是线程"+Thread.currentThread().getId()+"返回值";
+            return "我是线程" + Thread.currentThread().getId() + "返回值";
         }
     }
 
-public static void main (String args[]) throws ExecutionException, InterruptedException {
-    new Thread(new UseRun()).start();
-    new UseThread().start();
-    UseCall useCall = new UseCall();
-    FutureTask futureTask=new FutureTask(useCall);
-    FutureTask futureTask2=new FutureTask(useCall);
-    new Thread(futureTask).start();
-    new Thread(futureTask2).start();
-    //futureTask.get()是一个阻塞的方法，会等拿到返回值才会进行返回
-    System.out.println(futureTask.get());
-    System.out.println(futureTask2.get());
-    System.out.println("拿到返回值，结束");
+    public static void main(String args[]) throws ExecutionException, InterruptedException {
+        new Thread(new UseRun()).start();
+        new UseThread().start();
+        UseCall useCall = new UseCall();
+        FutureTask futureTask = new FutureTask(useCall);
+        FutureTask futureTask2 = new FutureTask(useCall);
+        new Thread(futureTask).start();
+        new Thread(futureTask2).start();
+        //futureTask.get()是一个阻塞的方法，会等拿到返回值才会进行返回
+        System.out.println(futureTask.get());
+        System.out.println(futureTask2.get());
+        System.out.println("拿到返回值，结束");
 
-}
+    }
 }
