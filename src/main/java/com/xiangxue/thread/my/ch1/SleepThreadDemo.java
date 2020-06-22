@@ -1,6 +1,7 @@
 package com.xiangxue.thread.my.ch1;
 
-import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.BrokenBarrierException;
+import java.util.concurrent.CyclicBarrier;
 
 /**
  * 测试slepp休眠时候是否是释放锁
@@ -11,34 +12,50 @@ import java.util.concurrent.CountDownLatch;
  */
 public class SleepThreadDemo {
     private static Object lock = new Object();
-    static CountDownLatch latch=new CountDownLatch(1);
-    public static void main(String[] args) throws InterruptedException {
+//    static CountDownLatch latch=new CountDownLatch(1);
+private static CyclicBarrier barrier
+        = new CyclicBarrier(2);
+    public static void main(String[] args)  {
         Thread threadA = new Thread(() -> {
-            latch.countDown();
-            synchronized (lock) {
-                try {
-                    System.out.println("A休眠2秒不放弃锁");
-                    Thread.sleep(5);
-                    System.out.println("A休眠2秒醒来");
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+            try {
+                barrier.await();
+                synchronized (lock) {
+                    try {
+                        System.out.println("A休眠2秒不放弃锁");
+                        Thread.sleep(5);
+                        System.out.println("A休眠2秒醒来");
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (BrokenBarrierException e) {
+                e.printStackTrace();
             }
+
         });
 
         Thread threadB = new Thread(() -> {
-            synchronized (lock) {
-                System.out.println("B休眠2秒不放弃锁");
-                try {
-                    Thread.sleep(5);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+            try {
+                barrier.await();
+                synchronized (lock) {
+                    System.out.println("B休眠2秒不放弃锁");
+                    try {
+                        Thread.sleep(5);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println("B休眠2秒醒来");
                 }
-                System.out.println("B休眠2秒醒来");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (BrokenBarrierException e) {
+                e.printStackTrace();
             }
+
         });
         System.out.println("主线程执行");
-        Thread.sleep(5);
         threadA.start();
         threadB.start();
         System.out.println("主线程结束");
