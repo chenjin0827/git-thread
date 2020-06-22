@@ -6,6 +6,7 @@ import java.util.concurrent.FutureTask;
 
 /**
  * 新启线程的三种方式
+ * futureTask.get()是阻塞方法，会等拿到结果后主线程才会继续往下执行
  */
 public class MyNewThread {
     private static class UseRun implements Runnable {
