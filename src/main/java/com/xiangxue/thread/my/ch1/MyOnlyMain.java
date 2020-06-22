@@ -17,6 +17,10 @@ import java.lang.management.ThreadMXBean;
  * 高并发变成的意义、好处和注意事项：
  * 好处：充分利用cpu的资源，加快用户响应，程序模块化，异步化
  * 问题：线程共享资源，存在冲突。容易导致死锁。启用过多的线程，容易搞垮机器
+ *
+ * 对sleep和yield的理解：
+ * sleep就是线程休眠了，一直到时间结束前，都不参与竞争了
+ * yield就是线程让出当前执行的机会，重新进行下一轮的竞争
  */
 public class MyOnlyMain {
 
