@@ -54,9 +54,10 @@ public class VolatileOneWriteMultiRead {
 
         @Override
         public void run() {
-            while(true){
                 synchronized (volatileOneWriteMultiRead){
+                    while(true){
                     try {
+                        //此处可以添加个条件，  不满足条件就等待
                         volatileOneWriteMultiRead.wait();
                         long id = Thread.currentThread().getId();
                         System.out.println("读线程id" + id + "当前值a为" + volatileOneWriteMultiRead.getA());
