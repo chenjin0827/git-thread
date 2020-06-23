@@ -25,11 +25,11 @@ public class SleepTools {
     
     /**
      * 按毫秒数休眠
-     * @param seconds 毫秒数
+     * @param ms 毫秒数
      */
-    public static final void ms(int seconds) {
+    public static final void ms(int ms) {
         try {
-            TimeUnit.MILLISECONDS.sleep(seconds);
+            TimeUnit.MILLISECONDS.sleep(ms);
         } catch (InterruptedException e) {
         }
     }
