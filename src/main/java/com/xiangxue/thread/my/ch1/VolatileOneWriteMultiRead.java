@@ -2,8 +2,13 @@ package com.xiangxue.thread.my.ch1;
 
 import com.xiangxue.tools.SleepTools;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 /**
  * 测试Volatile一个线程写，多个线程读
+ * 结合wait和notify使用
+ * 应该尽量使用notifyAll，使用notify因为有可能发生信号丢失的的情况
  */
 public class VolatileOneWriteMultiRead {
     private volatile int a = 1;
