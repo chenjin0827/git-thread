@@ -3,9 +3,9 @@ package com.xiangxue.ch1;
 import com.xiangxue.tools.SleepTools;
 
 /**
- *@author Mark老师   享学课堂 https://enjoy.ke.qq.com 
  *
  *类说明：start和run方法的区别
+ * 必须通过线程进行绑定才能和操作系统对应上，不然直接执行对象的run方法就是个方法，和线程没有关系
  */
 public class StartAndRun {
     public static class ThreadRun extends Thread{
