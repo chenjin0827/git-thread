@@ -44,7 +44,7 @@ public class MyDBPool {
                 long overtime = System.currentTimeMillis()+mills;
                 long remain = mills;
                 while(pool.isEmpty()&&remain>0) {
-                    pool.wait(remain);
+                    pool.wait(remain);//如果提前被唤醒，下面需要重新计算下等待时间
                     remain = overtime - System.currentTimeMillis();
                 }
                 Connection result  = null;
