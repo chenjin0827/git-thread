@@ -1,5 +1,7 @@
 package com.xiangxue.thread.my.ch2;
 
+import com.xiangxue.tools.SleepTools;
+
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveTask;
 
@@ -11,7 +13,7 @@ import java.util.concurrent.RecursiveTask;
 public class MySumArray {
     private static class MySumTask extends RecursiveTask<Integer> {
 
-        private final static int THRESHOLD = MyMakeArray.ARRAY_LENGTH / 10;
+        private final static int THRESHOLD = MyMakeArray.ARRAY_LENGTH / 10;//阈值定义为要计算数组的十分之一大小
         private int[] src; //表示我们要实际统计的数组
         private int fromIndex;//开始统计的下标
         private int toIndex;//统计到哪里结束的下标
@@ -24,10 +26,11 @@ public class MySumArray {
 
         @Override
         protected Integer compute() {
+            //当结束下标-开始小标<阈值，进行计算
             if (toIndex - fromIndex < THRESHOLD) {
                 int count = 0;
                 for (int i = fromIndex; i <= toIndex; i++) {
-                    //SleepTools.ms(1);
+//                    SleepTools.ms(1);
                     count = count + src[i];
                 }
                 return count;
@@ -38,6 +41,7 @@ public class MySumArray {
                 MySumTask left = new MySumTask(src, fromIndex, mid);
                 MySumTask right = new MySumTask(src, mid + 1, toIndex);
                 invokeAll(left, right);
+                //调用join方法获取返回值
                 return left.join() + right.join();
             }
         }
