@@ -27,11 +27,11 @@ public class VolatileOneWriteMultiRead {
 
         @Override
         public void run() {
-            while(true){
+            while (true) {
                 SleepTools.second(2);//此处等待2秒，让所有线程都初始化完成，不然会出现第一轮数据读线程可能无法取到
                 long id = Thread.currentThread().getId();
                 int a = volatileOneWriteMultiRead.getA();
-                synchronized (volatileOneWriteMultiRead){
+                synchronized (volatileOneWriteMultiRead) {
                     volatileOneWriteMultiRead.setA(++a);
                     System.out.println("写线程id" + id + "写入值a为" + volatileOneWriteMultiRead.getA());
                     volatileOneWriteMultiRead.notifyAll();
@@ -54,10 +54,11 @@ public class VolatileOneWriteMultiRead {
 
         @Override
         public void run() {
-                synchronized (volatileOneWriteMultiRead){
-                    while(true){
+            synchronized (volatileOneWriteMultiRead) {
+                while (true) {
                     try {
-                        //此处可以添加个条件，  不满足条件就等待
+                        //此处可以添加个条件，  不满足条件就等待  只有一个需要唤醒的没有条件不要紧，多个唤醒就必须条件，不然
+                        //不然使用notifyAll会出现误唤醒
                         volatileOneWriteMultiRead.wait();
                         long id = Thread.currentThread().getId();
                         System.out.println("读线程id" + id + "当前值a为" + volatileOneWriteMultiRead.getA());

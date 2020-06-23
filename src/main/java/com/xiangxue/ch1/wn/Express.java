@@ -39,7 +39,6 @@ public class Express {
 				System.out.println("check km thread["+Thread.currentThread().getId()
 						+"] is be notifed.");
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
     	}
@@ -54,7 +53,6 @@ public class Express {
 				System.out.println("check site thread["+Thread.currentThread().getId()
 						+"] is be notifed.");
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
     	}
