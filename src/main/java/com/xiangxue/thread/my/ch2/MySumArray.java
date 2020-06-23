@@ -40,6 +40,7 @@ public class MySumArray {
                 int mid = (fromIndex + toIndex) / 2;
                 MySumTask left = new MySumTask(src, fromIndex, mid);
                 MySumTask right = new MySumTask(src, mid + 1, toIndex);
+                //子任务交给pool去执行
                 invokeAll(left, right);
                 //调用join方法获取返回值
                 return left.join() + right.join();
