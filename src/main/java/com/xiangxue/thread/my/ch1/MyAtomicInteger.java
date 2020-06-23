@@ -7,6 +7,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * 使用AtomicInteger实现线程安全
  * 注意使用getAndIncrement方法时，注意将返回值写回到一个变量中
+ * 不然可能涉及++i和i++的问题，导致数据显示不对
  */
 
 
