@@ -2,6 +2,7 @@ package com.xiangxue.ch2.forkjoin;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveAction;
@@ -10,6 +11,7 @@ import java.util.concurrent.RecursiveAction;
  *@author Mark老师   享学课堂 https://enjoy.ke.qq.com 
  *
  *类说明：遍历指定目录（含子目录）找寻指定类型文件
+ * RecursiveAction不需要返回结果
  */
 public class FindDirsFiles extends RecursiveAction{
 
@@ -59,7 +61,8 @@ public class FindDirsFiles extends RecursiveAction{
 				}
 			}
 			if(!subTasks.isEmpty()) {
-				for(FindDirsFiles subTask:invokeAll(subTasks)) {
+                Collection<FindDirsFiles> findDirsFiles = invokeAll(subTasks);
+                for(FindDirsFiles subTask: findDirsFiles) {
 					subTask.join();//等待子任务执行完成
 				}
 			}
