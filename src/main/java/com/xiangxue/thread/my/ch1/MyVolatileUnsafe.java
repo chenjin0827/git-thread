@@ -16,7 +16,7 @@ public class MyVolatileUnsafe {
             String threadName = Thread.currentThread().getName();
             a = a++;
             System.out.println(threadName + ":======" + a);
-            SleepTools.ms(50);
+            SleepTools.ms(100);
             a = a + 1;
             System.out.println(threadName + ":======" + a);
         }
@@ -24,10 +24,11 @@ public class MyVolatileUnsafe {
 
 
     public static void main(String[] args) {
-        Thread thread = new Thread(new VolatileVar());
-        Thread thread2 = new Thread(new VolatileVar());
-        Thread thread3 = new Thread(new VolatileVar());
-        Thread thread4 = new Thread(new VolatileVar());
+        VolatileVar v = new VolatileVar();
+        Thread thread = new Thread(v);
+        Thread thread2 = new Thread(v);
+        Thread thread3 = new Thread(v);
+        Thread thread4 = new Thread(v);
         thread.start();
         thread2.start();
         thread3.start();
