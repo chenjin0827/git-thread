@@ -23,7 +23,7 @@ public class FindDirsFiles extends RecursiveAction{
         try {
             // 用一个 ForkJoinPool 实例调度总任务
             ForkJoinPool pool = new ForkJoinPool();
-            FindDirsFiles task = new FindDirsFiles(new File("F:/"));
+            FindDirsFiles task = new FindDirsFiles(new File("E:/medicine"));
 
             pool.execute(task);//异步调用
 
