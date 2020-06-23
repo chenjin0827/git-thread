@@ -30,9 +30,15 @@ public class VolatileOneWriteMultiRead {
             while(true){
                 long id = Thread.currentThread().getId();
                 int a = volatileOneWriteMultiRead.getA();
-                volatileOneWriteMultiRead.setA(++a);
-                System.out.println("写线程id" + id + "写入值a为" + volatileOneWriteMultiRead.getA());
+                synchronized (volatileOneWriteMultiRead){
+                    volatileOneWriteMultiRead.setA(++a);
+                    System.out.println("写线程id" + id + "写入值a为" + volatileOneWriteMultiRead.getA());
+                    volatileOneWriteMultiRead.notifyAll();
+                }
                 SleepTools.second(2);
+
+
+
             }
 
 
@@ -50,8 +56,20 @@ public class VolatileOneWriteMultiRead {
 
         @Override
         public void run() {
-            long id = Thread.currentThread().getId();
-            System.out.println("读线程id" + id + "当前值a为" + volatileOneWriteMultiRead.getA());
+            while(true){
+                synchronized (volatileOneWriteMultiRead){
+                    try {
+                        volatileOneWriteMultiRead.wait();
+                        long id = Thread.currentThread().getId();
+                        System.out.println("读线程id" + id + "当前值a为" + volatileOneWriteMultiRead.getA());
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }
+
+
         }
     }
 
