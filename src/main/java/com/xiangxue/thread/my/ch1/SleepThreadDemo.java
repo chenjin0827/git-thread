@@ -12,7 +12,6 @@ import java.util.concurrent.CyclicBarrier;
  */
 public class SleepThreadDemo {
     private static Object lock = new Object();
-//    static CountDownLatch latch=new CountDownLatch(1);
 private static CyclicBarrier barrier
         = new CyclicBarrier(2);
     public static void main(String[] args)  {
@@ -21,9 +20,9 @@ private static CyclicBarrier barrier
                 barrier.await();
                 synchronized (lock) {
                     try {
-                        System.out.println("A休眠2秒不放弃锁");
+                        System.out.println("A休眠不放弃锁");
                         Thread.sleep(5);
-                        System.out.println("A休眠2秒醒来");
+                        System.out.println("A休眠醒来");
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -40,13 +39,13 @@ private static CyclicBarrier barrier
             try {
                 barrier.await();
                 synchronized (lock) {
-                    System.out.println("B休眠2秒不放弃锁");
+                    System.out.println("B休眠不放弃锁");
                     try {
                         Thread.sleep(5);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    System.out.println("B休眠2秒醒来");
+                    System.out.println("B休眠醒来");
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
