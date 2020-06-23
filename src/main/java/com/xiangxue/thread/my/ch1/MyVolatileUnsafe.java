@@ -5,6 +5,7 @@ import com.xiangxue.tools.SleepTools;
 /**
  * Volatile的线程不安全
  * 只适合一个线程写多个线程读的情况
+ * 使用Volatile会将数据实时同步到主内存
  */
 public class MyVolatileUnsafe {
 
